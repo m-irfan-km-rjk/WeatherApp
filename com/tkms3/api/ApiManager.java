@@ -66,5 +66,23 @@ public class ApiManager {
             return null;
         }
     }
+
+    public JsonObject getCurrencyData() {
+        String url = "https://api.freecurrencyapi.com/v1/latest?apikey=fca_live_wSiwCgQwsWSghfK0oJ8ebFMSxd4GVotV15UnvGGi";
+
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+        
+        try {
+            HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+            return JsonParser.parseString(response.body()).getAsJsonObject();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new JsonObject();
+    }
 }
 

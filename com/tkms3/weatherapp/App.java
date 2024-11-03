@@ -1,6 +1,7 @@
 package com.tkms3.weatherapp;
 
 import com.tkms3.api.ApiManager;
+import com.tkms3.weatherapp.screens.CurrencyConversion;
 import com.tkms3.weatherapp.screens.PlaceDetails;
 import com.tkms3.weatherapp.screens.Weather;
 
@@ -23,8 +24,9 @@ public class App {
         // Create an instance of PlaceDetails JPanel
         PlaceDetails pd = new PlaceDetails(a);
         Weather wp = new Weather(a);
+        CurrencyConversion c = new CurrencyConversion(a);
 
-        win.add(wp, BorderLayout.CENTER);
+        win.add(c, BorderLayout.CENTER);
 
         win.setVisible(true);
     }
