@@ -29,9 +29,7 @@ public class ApiManager {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
         JsonObject search = JsonParser.parseString(response.body()).getAsJsonObject();
-        System.out.println("Latitude: " + search);
-        System.out.println("Longitude: " + search.get("longitude"));
-
+        
         HttpRequest request2 = HttpRequest.newBuilder()
                 .uri(URI.create("https://api.open-meteo.com/v1/forecast?latitude="+search.getAsJsonArray("results").get(0).getAsJsonObject().get("latitude").getAsLong()+"&longitude="+search.getAsJsonArray("results").get(0).getAsJsonObject().get("longitude").getAsLong()+
                 "&hourly=temperature_2m,relativehumidity_2m,weathercode,windspeed_10m&timezone=auto"))
@@ -46,7 +44,7 @@ public class ApiManager {
 
     public String getPlaceDetails(String place) {
         String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyDnSIPJijuoOpmYKpnSMS3X5Qojmxdz6b8";
-        String prompt = "{\"contents\":{\"parts\":[{\"text\":\"Create a fully-styled HTML page describing " + place + " and its tourist attractions, famous food and things needed to be takien while travelling there using only inline styles. Ensure every section has vibrant colors, clean layout, and appropriate font sizes for headings, paragraphs, and highlights. Make the background colour to be #40E0D0 and the text is visible by setting appropriate colours. Include detailed descriptions of each place, and use subtle gradients, borders, and margins for visual clarity. Ensure modern, professional styling with no missing elements. Ensure it is readable with contrast and padding for small screens.Dont use images\"}]}}";
+        String prompt = "{\"contents\":{\"parts\":[{\"text\":\"Create a fully-styled HTML page describing " + place + " and its tourist attractions, famous food and things needed to be takien while travelling there using only inline styles. Ensure every section has vibrant colors, clean layout, and appropriate font sizes for headings, paragraphs, and highlights. Make sure there are no empty spaces. Make the background colour to be #40E0D0 and the text is visible by setting appropriate colours. Include detailed descriptions of each place, and use subtle gradients, borders, and margins for visual clarity. Ensure modern, professional styling with no missing elements. Ensure it is readable with contrast and padding for small screens.Dont use images.\"}]}}";
 
         JsonObject payload = JsonParser.parseString(prompt).getAsJsonObject();
 

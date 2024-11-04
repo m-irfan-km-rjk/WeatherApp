@@ -11,9 +11,11 @@ public class PlaceDetails extends JPanel {
 
     public PlaceDetails(ApiManager apm) {
         setLayout(new BorderLayout());
+        setBackground(new Color(0,128,128));
 
         JPanel search = new JPanel(new GridBagLayout());
-        JEditorPane pn = new JEditorPane("text/html", "<body style='background-color: #40E0D0; font-size:20px'><center><b>Enter the place name</b></center></body>");
+        search.setBackground(new Color(0,208,208));
+        JEditorPane pn = new JEditorPane("text/html", "<body style='background-color: rgb(0,128,128); font-size:20px'><center><b>Enter the place name</b></center></body>");
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5); // Add some padding
@@ -73,6 +75,7 @@ public class PlaceDetails extends JPanel {
         });
 
         JScrollPane scrollPane = new JScrollPane(pn);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         add(scrollPane, BorderLayout.CENTER);
 
         this.setVisible(true);

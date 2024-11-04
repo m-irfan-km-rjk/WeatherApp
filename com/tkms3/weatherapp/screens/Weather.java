@@ -5,8 +5,6 @@ import com.tkms3.weatherapp.widgets.*;
 import com.google.gson.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.geom.RoundRectangle2D;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -24,71 +22,76 @@ public class Weather extends JPanel{
     public Weather(ApiManager weatherapi){
         
         setBackground(new Color(0, 128, 128));
-        setLayout(new BorderLayout());
+        setLayout(null);
 
         // Create a rounded JTextField
         RoundTextField T1 = new RoundTextField(20, 40, 40); 
         T1.setForeground(Color.BLACK);   
-        T1.setPreferredSize(new Dimension(300, 50)); 
+        T1.setBounds(40,20,300,100); 
 
 
         // Create a panel for the top area and add the text field
         JPanel topPanel = new JPanel();
         topPanel.setOpaque(false);  
         topPanel.add(T1); 
-        topPanel.setPreferredSize(new Dimension(400, 100));  
+        topPanel.setBounds(0,0,420,100);  
 
         JPanel midPanel = new JPanel();
         midPanel.setOpaque(false);
-        midPanel.setPreferredSize(new Dimension(400,600));
+        midPanel.setLayout(null);
+        midPanel.setBounds(0,100,420,520);
 
         //weather img
         JLabel weatherConditionImg = new JLabel(loadImage("imgs/cloudy.png"));
-        weatherConditionImg.setBounds(0,125,350,217);
+        weatherConditionImg.setBounds(100,0,250,220);
         midPanel.add(weatherConditionImg);
 
         //temperature text
         JLabel tempText = new JLabel("10 C");
-        tempText.setBounds(0,350,350,54);
+        tempText.setBounds(150,230,350,50);
         tempText.setFont(new Font("Dialog",Font.BOLD, 48));
-        tempText.setHorizontalAlignment(SwingConstants.CENTER);
         midPanel.add(tempText);
 
         //weather description
 
         JLabel weatherDesp = new JLabel("Cloudy");
-        weatherDesp.setBounds(0,550,350,36);
-        weatherDesp.setFont(new Font("Dialog",Font.PLAIN,32));
-        weatherDesp.setHorizontalAlignment(SwingConstants.CENTER);
+        weatherDesp.setBounds(170,270,350,35);
+        weatherDesp.setFont(new Font("Dialog",Font.PLAIN,28));
         midPanel.add(weatherDesp);
 
         //humidity Image
         JLabel humidImg = new JLabel(loadImage("imgs/humidity.png"));
-        humidImg.setBounds(15,650,74,66);
+        humidImg.setBounds(45,400,74,66);
         midPanel.add(humidImg);
 
         //humidity text
         JLabel humidText = new JLabel("<html><b>Humidity</b> 100%</html>");
-        humidText.setBounds(90,675,85,55);
+        humidText.setBounds(120,400,85,55);
         humidText.setFont(new Font("Dialog",Font.PLAIN,16));
         midPanel.add(humidText);
 
         //wind speed Image
         JLabel windsImg = new JLabel(loadImage("imgs/windspeed.png"));
-        windsImg.setBounds(220,700,75,55);
+        windsImg.setBounds(220,400,75,55);
         midPanel.add(windsImg);
         //wind speed Text
         JLabel windsText = new JLabel("\"<html><b>Windspeed</b> 15km/h</html>\"");
-        windsText.setBounds(310,700,85,55);
+        windsText.setBounds(310,400,85,55);
         windsText.setFont(new Font("Dialog",Font.PLAIN,16));
         midPanel.add(windsText);
-
+        //Unit of temp
+        JCheckBox Faheren = new JCheckBox("Fahrenheit",false);
+        Faheren.setBounds(170,470,150,30);
+        Faheren.setOpaque(false);
+        midPanel.add(Faheren);
         // search button
         JButton searchButton = new JButton(loadImage("imgs/search.png"));
 
         // change the cursor to a hand cursor when hovering over this button
         searchButton.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-        searchButton.setBounds(375, 13, 47, 45);
+        searchButton.setBackground(getBackground());
+        searchButton.setBorderPainted(false);
+        searchButton.setBounds(375, 20, 20, 20);
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -133,7 +136,13 @@ public class Weather extends JPanel{
 
                 // update temperature text
                 double temperature = (double) weather.get("temperature").getAsDouble();
-                tempText.setText(temperature + " C");
+                if (Faheren.isSelected() == false){
+                    tempText.setText(temperature + " C");
+                }
+                else{
+                    tempText.setText((temperature*((double)9/5)+32) + " F");
+                }
+                
 
                 // update weather condition text
                 weatherDesp.setText(weatherCondition);
@@ -149,18 +158,11 @@ public class Weather extends JPanel{
 
             }
         });
-        midPanel.add(searchButton);
-         // Create a panel at the bottom
-         JPanel panel = new JPanel();
-         JLabel l1 = new JLabel("Hello");
-         panel.setBackground(new Color(64,224,208)); 
-         panel.add(l1);  
-         panel.setPreferredSize(new Dimension(400, 60));  
- 
+        topPanel.add(searchButton);
+        
          // Add components to the frame using BorderLayout
-        add(topPanel, BorderLayout.NORTH);  
-        add(panel, BorderLayout.SOUTH);    
-        add(midPanel,BorderLayout.CENTER);
+        add(topPanel);      
+        add(midPanel);
         setVisible(true);
     }
     private static JsonObject formatdata(JsonObject raw_weatherData){
