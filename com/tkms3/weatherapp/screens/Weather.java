@@ -130,7 +130,7 @@ public class Weather extends JPanel{
                         weatherConditionImg.setIcon(loadImage("imgs/rain.png"));
                         break;
                     case "Snow":
-                        weatherConditionImg.setIcon(loadImage("imgs/snow.pngImage"));
+                        weatherConditionImg.setIcon(loadImage("imgs/snow.png"));
                         break;
                 }
 
@@ -140,7 +140,7 @@ public class Weather extends JPanel{
                     tempText.setText(temperature + " C");
                 }
                 else{
-                    tempText.setText((temperature*((double)9/5)+32) + " F");
+                    tempText.setText((((temperature*9)/5)+32) + " F");
                 }
                 
 

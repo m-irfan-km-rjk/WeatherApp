@@ -36,6 +36,7 @@ public class CurrencyConversion extends JPanel {
         inputAmountField.setPreferredSize(new Dimension(300, 50));
 
         fromCurrencyBox = new JComboBox<>();
+        fromCurrencyBox.setBackground(getBackground());
         toCurrencyBox = new JComboBox<>();
         outputAmountField = new RoundTextField(20, 40, 40);
         outputAmountField.setEditable(false); // Make output field non-editable

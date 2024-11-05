@@ -8,6 +8,8 @@ import com.tkms3.weatherapp.widgets.Navbar;
 
 import javax.swing.*;
 import java.awt.*;
+import com.tkms3.weatherapp.screens.TimeZone;
+import com.tkms3.weatherapp.screens.Translation;
 
 public class App {
     public static void main(String[] args) {
@@ -15,9 +17,9 @@ public class App {
         ApiManager a = new ApiManager();
 
         // Create and set up the JFrame
-        JFrame win = new JFrame("Weather App");
+        JFrame win = new JFrame("Travel Pack App");
         win.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        win.setBounds(50, 50, 420, 840);
+        win.setBounds(50, 0, 420, 840);
         win.setBackground(Color.BLUE);
         win.setResizable(false);
 
@@ -29,11 +31,15 @@ public class App {
         PlaceDetails pd = new PlaceDetails(a);
         Weather wp = new Weather(a);
         CurrencyConversion c = new CurrencyConversion(a);
+        TimeZone t = new TimeZone(a);
+        Translation ti = new Translation(a);
 
         // Add each panel to cardPanel with a unique name
         cardPanel.add(wp, "Weather");
         cardPanel.add(pd, "PlaceDetails");
         cardPanel.add(c, "CurrencyConversion");
+        cardPanel.add(t,"TimeZone");
+        cardPanel.add(ti,"Translate");
 
         // Navbar with references to each screen and cardLayout for switching
         Navbar nb = new Navbar(cardLayout, cardPanel);
